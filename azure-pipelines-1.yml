@@ -30,11 +30,11 @@ steps:
     command: publish
     publishWebProjects: false
     projects: '**/*core-webjob/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)\triggered\mywebjb'
+    arguments: '--configuration $(buildConfiguration) --self-contained -r win10-x64 --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
   inputs:
-    artifactName: 'myWebjob'
+    artifactName: 'Webjob_drop'
   
