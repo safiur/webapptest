@@ -30,7 +30,7 @@ steps:
     command: publish
     publishWebProjects: false
     projects: '**/*core-webjob/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)\jobs\triggered\mywebjb'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)\triggered\mywebjb'
     zipAfterPublish: true
 
 - task: PublishBuildArtifacts@1
