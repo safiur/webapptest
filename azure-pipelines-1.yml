@@ -1,0 +1,40 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: build
+    projects: '**/*core-webjob/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  inputs:
+    command: publish
+    publishWebProjects: false
+    projects: '**/*core-webjob/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)\jobs\triggered\mywebjb'
+    zipAfterPublish: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'publish artifacts'
+  inputs:
+    artifactName: 'myWebjob'
+  
