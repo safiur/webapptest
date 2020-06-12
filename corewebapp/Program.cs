@@ -19,6 +19,17 @@ namespace corewebapp
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+              .ConfigureLogging((hostingContext, logging) =>
+                 {
+                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                 logging.AddConsole();
+                 logging.AddDebug();
+                 logging.AddAzureWebAppDiagnostics();
+                 })
+                 .UseApplicationInsights()
+                 .UseStartup<Startup>()
+                 .Build();
+            }
                 .UseStartup<Startup>()
                 .Build();
     }
