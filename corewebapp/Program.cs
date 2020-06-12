@@ -10,27 +10,24 @@ using Microsoft.Extensions.Logging;
 
 namespace corewebapp
 {
-    public class Program
+    ublic class Program
+{
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            BuildWebHost(args).Run();
-        }
+        BuildWebHost(args).Run();
+    }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-              .ConfigureLogging((hostingContext, logging) =>
-                 {
+    public static IWebHost BuildWebHost(string[] args) =>
+        WebHost.CreateDefaultBuilder(args)
+             .ConfigureLogging((hostingContext, logging) =>
+             {
                  logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                  logging.AddConsole();
                  logging.AddDebug();
                  logging.AddAzureWebAppDiagnostics();
-                 })
-                 .UseApplicationInsights()
-                 .UseStartup<Startup>()
-                 .Build();
-            }
-                .UseStartup<Startup>()
-                .Build();
-    }
+             })
+            .UseApplicationInsights()
+            .UseStartup<Startup>()
+            .Build();
+}
 }
