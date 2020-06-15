@@ -10,9 +10,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using ProView.Attestation.Publisher.Infrastructure;
+using PV.Event.Constants;
+using PV.Event.Security;
 using Serilog;
 using Serilog.Context;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace ProView.Attestation.Publisher
 {

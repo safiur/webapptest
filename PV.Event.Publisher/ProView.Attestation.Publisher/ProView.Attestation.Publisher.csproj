@@ -39,6 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PV.Event.Security\PV.Event.Security.csproj" />
+    <ProjectReference Include="..\ProView.Attestation.Publisher.BL\ProView.Attestation.Publisher.BL.csproj" />
+    <ProjectReference Include="..\ProView.Attestation.Publisher.DAL\ProView.Attestation.Publisher.DAL.csproj" />
+    <ProjectReference Include="..\ProView.Attestation.Publishers.Model\ProView.Attestation.Publisher.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
