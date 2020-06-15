@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Azure.Amqp.Framing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace ProView.Attestation.Publisher.Infrastructure
 {

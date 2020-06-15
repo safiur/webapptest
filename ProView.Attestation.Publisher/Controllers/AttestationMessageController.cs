@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using ProView.Attestation.Publisher.BL.ServiceContracts;
-using ProView.Attestation.Publisher.Model;
-using PV.Event.Common;
-using PV.Event.Constants;
 using Serilog;
 using Serilog.Context;
 
