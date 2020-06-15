@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProView.Attestation.Publisher</name>
+    </assembly>
+    <members>
+        <member name="T:ProView.Attestation.Publisher.Controllers.AttestationMessageController">
+            <summary>
+            Attestation Message Controller
+            </summary>
+        </member>
+        <member name="F:ProView.Attestation.Publisher.Controllers.AttestationMessageController._attestationPublisherService">
+            <summary>
+            Attestation Publisher service
+            </summary>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Controllers.AttestationMessageController.#ctor(ProView.Attestation.Publisher.BL.ServiceContracts.IAttestationPublisherService,Microsoft.Extensions.Logging.ILogger{ProView.Attestation.Publisher.Controllers.AttestationMessageController},ProView.Attestation.Publisher.BL.ServiceContracts.IMessageLogService)">
+            <summary>
+            Attestation Message Controller constructor
+            </summary>
+            <param name="attestationPublisherService"></param>
+            <param name="logger"></param>
+            <param name="messageService"></param>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Controllers.AttestationMessageController.Publish(ProView.Attestation.Publisher.Model.AttestationMessage)">
+            <summary>
+            Action to publish attestation message
+            </summary>
+            <param name="attestationMessage">Attestation Message Object</param>
+            <returns>Action result</returns>
+            <response code="401">If call is UnAuthorized</response>
+            <response code="200">If message is published successfully</response>
+            <response code="400">If message request is invalid</response>
+            <response code="500">If any internal server error occurred</response> 
+        </member>
+        <member name="T:ProView.Attestation.Publisher.Infrastructure.DependencyInjectionExtensions">
+            <summary>
+            Class to add dependency injection
+            </summary>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Infrastructure.DependencyInjectionExtensions.RegisterServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Method to register dependency injection
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="T:ProView.Attestation.Publisher.Infrastructure.SwaggerServiceExtensions">
+            <summary>
+            Swagger Service Extensions
+            </summary>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Infrastructure.SwaggerServiceExtensions.AddSwaggerDocumentation(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Method to add Swagger Documentation
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Infrastructure.SwaggerServiceExtensions.UseSwaggerDocumentation(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Method to Use Swagger Documentation
+            </summary>
+            <param name="app"></param>
+            <returns>IApplicationBuilder</returns>
+        </member>
+        <member name="T:ProView.Attestation.Publisher.Infrastructure.BasicAuthDocumentFilter">
+            <summary>
+            Swagger document filter
+            </summary>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Infrastructure.BasicAuthDocumentFilter.Apply(Swashbuckle.AspNetCore.Swagger.SwaggerDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:ProView.Attestation.Publisher.Program">
+            <summary>
+            Class that host and run the application
+            </summary>
+        </member>
+        <member name="P:ProView.Attestation.Publisher.Program.Configuration">
+            <summary>
+            Configuration object member
+            </summary>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Program.Main(System.String[])">
+            <summary>
+            Main method: entry point of application
+            </summary>
+            <param name="args">command line arguments</param>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            Method to create web host builder object
+            </summary>
+            <param name="args">command line arguments supplied through main method</param>
+            <returns>IWebHostBuilder</returns>
+        </member>
+        <member name="T:ProView.Attestation.Publisher.Startup">
+            <summary>
+            Class that manage dependency and middleware
+            </summary>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Startup constructor
+            </summary>
+            <param name="env"></param>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:ProView.Attestation.Publisher.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">IApplicationBuilder</param>
+            <param name="env">IHostingEnvironment</param>
+        </member>
+    </members>
+</doc>
