@@ -13,30 +13,58 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-
 - task: DotNetCoreCLI@2
+  displayName: Restore
   inputs:
-    command: test
-    projects: '**/*Test/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+    command: restore
+    projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  displayName: Build
+  inputs:
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish'
   inputs:
     command: publish
     publishWebProjects: false
-    projects: '**/*LoggingWebMvc/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+    projects: |
+     **/LoggingWebMvc.csproj
+     
+    arguments: '--configuration $(BuildConfiguration)  --output $(build.artifactstagingdirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish webjob'
+  inputs:
+    command: publish
+    publishWebProjects: false
+    projects: '**/Samples.WebJobs.Core.csproj'
+    arguments: '--configuration $(BuildConfiguration)  --output $(build.artifactstagingdirectory)\App_Data\jobs\triggered\webtestjb'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+- powershell: |
+   # Write your PowerShell commands here.
+   
+   "dotnet Samples.WebJobs.Core.dll" | Out-File run.cmd -Encoding ASCII; $LASTEXITCODE
+   
+  workingDirectory: '$(build.artifactstagingdirectory)\App_Data\jobs\triggered\webtestjb'
+  displayName: 'PowerShell Script'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'publish artifacts'
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: 'webjob_drop'
+  condition: succeededOrFailed()
+  
 - script: |
     curl -O -L https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+
 - task: ExtractFiles@1
   inputs:
     archiveFilePatterns: 'pipeline-scan-LATEST.zip'
-    cleanDestinationFolder: false
+    cleanDestinationFolder: false  
+
