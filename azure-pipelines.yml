@@ -28,7 +28,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: false
-    projects: '**/*corewebapp/*.csproj'
+    projects: '**/*LoggingWebMvc/*.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
 
