@@ -34,3 +34,9 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
+- script: |
+    curl -O -L https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: 'pipeline-scan-LATEST.zip'
+    cleanDestinationFolder: false
