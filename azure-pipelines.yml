@@ -62,9 +62,7 @@ steps:
   
 - script: |
     curl -O -L https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+    unzip pipeline-scan-LATEST.zip pipeline-scan.jar
 
-- task: ExtractFiles@1
-  inputs:
-    archiveFilePatterns: 'pipeline-scan-LATEST.zip'
-    cleanDestinationFolder: false  
+  
 
