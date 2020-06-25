@@ -11,6 +11,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  VERACODE_API_ID: '12f69fe85c37a4dcd1dc982ed4aef78f'
+  VERACODE_API_KEY: 'ca58f8547c98a57c69b187087e92940989a5aa6ce0cf6a387d53a2671ed8d7b4dfc3d8575f49c16e974988c7952f618601d2a9a18a2c2b93a205fcf03c0e82c2'
 
 steps:
 - task: DotNetCoreCLI@2
@@ -63,6 +65,9 @@ steps:
 - script: |
     curl -O -L https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
     unzip pipeline-scan-LATEST.zip pipeline-scan.jar
+
+- script: |
+      java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "$(VERACODE_API_ID)" --veracode_api_key "$(VERACODE_API_KEY)" --file "$(System.DefaultWorkingDirectory)/_mywebjob-ASP.NET Core-CI/webjob_drop/LoggingWebMvc.zip" --fail_on_severity="Very High, High" --fail_on_cwe="80"
 
   
 
