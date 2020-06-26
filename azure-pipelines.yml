@@ -67,7 +67,7 @@ steps:
     unzip pipeline-scan-LATEST.zip pipeline-scan.jar
 
 - script: |
-      java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "$(VERACODE_API_ID)" --veracode_api_key "$(VERACODE_API_KEY)" --file "$(System.DefaultWorkingDirectory)/_mywebjob-ASP.NET Core-CI/webjob_drop/LoggingWebMvc.zip" --fail_on_severity="Very High, High" --fail_on_cwe="80"
+      java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "$(VERACODE_API_ID)" --veracode_api_key "$(VERACODE_API_KEY)" --file "LoggingWebMvc.zip" --fail_on_severity="Very High, High" --fail_on_cwe="80"
 
   
 
