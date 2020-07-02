@@ -7,30 +7,67 @@ trigger:
 - master
 
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: 'vs2017-win2016'
 
 variables:
   buildConfiguration: 'Release'
+  VERACODE_API_ID: '12f69fe85c37a4dcd1dc982ed4aef78f'
+  VERACODE_API_KEY: 'ca58f8547c98a57c69b187087e92940989a5aa6ce0cf6a387d53a2671ed8d7b4dfc3d8575f49c16e974988c7952f618601d2a9a18a2c2b93a205fcf03c0e82c2'
 
 steps:
-
 - task: DotNetCoreCLI@2
+  displayName: Restore
   inputs:
-    command: test
-    projects: '**/*Test/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+    command: restore
+    projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  displayName: Build
+  inputs:
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish'
   inputs:
     command: publish
     publishWebProjects: false
-    projects: '**/*corewebapp/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+    projects: |
+     **/LoggingWebMvc.csproj
+     
+    arguments: '--configuration $(BuildConfiguration)  --output $(build.artifactstagingdirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish webjob'
+  inputs:
+    command: publish
+    publishWebProjects: false
+    projects: '**/Samples.WebJobs.Core.csproj'
+    arguments: '--configuration $(BuildConfiguration)  --output $(build.artifactstagingdirectory)\App_Data\jobs\triggered\webtestjb'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+- powershell: |
+   # Write your PowerShell commands here.
+   
+   "dotnet Samples.WebJobs.Core.dll" | Out-File run.cmd -Encoding ASCII; $LASTEXITCODE
+   
+  workingDirectory: '$(build.artifactstagingdirectory)\App_Data\jobs\triggered\webtestjb'
+  displayName: 'PowerShell Script'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'publish artifacts'
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: 'webjob_drop'
+  condition: succeededOrFailed()
+  
+- script: |
+    curl -O -L https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+    unzip pipeline-scan-LATEST.zip pipeline-scan.jar
+
+- script: |
+      java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id $(VERACODE_API_ID) --veracode_api_key $(VERACODE_API_KEY) --file "webjob_drop/LoggingWebMvc.zip" --fail_on_severity="Very High, High" --fail_on_cwe="80"
+
+  
+
