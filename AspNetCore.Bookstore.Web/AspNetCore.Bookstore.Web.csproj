@@ -16,11 +16,11 @@
   </ItemGroup>
 
 
-  <ItemGroup>
-    <ProjectReference Include="..\AspNetCore.Bookstore.Domain\AspNetCore.Bookstore.Domain.csproj" />
-    <ProjectReference Include="..\AspNetCore.Bookstore.Data\AspNetCore.Bookstore.Data.csproj" />
-    <ProjectReference Include="..\AspNetCore.Bookstore.Application\AspNetCore.Bookstore.Application.csproj" />
-    <ProjectReference Include="..\AspNetCore.Bookstore.IoC\AspNetCore.Bookstore.IoC.csproj" />
-  </ItemGroup>
+#  <ItemGroup>
+#    <ProjectReference Include="..\AspNetCore.Bookstore.Domain\AspNetCore.Bookstore.Domain.csproj" />
+#    <ProjectReference Include="..\AspNetCore.Bookstore.Data\AspNetCore.Bookstore.Data.csproj" />
+#    <ProjectReference Include="..\AspNetCore.Bookstore.Application\AspNetCore.Bookstore.Application.csproj" />
+#    <ProjectReference Include="..\AspNetCore.Bookstore.IoC\AspNetCore.Bookstore.IoC.csproj" />
+#  </ItemGroup>
 
 </Project>
