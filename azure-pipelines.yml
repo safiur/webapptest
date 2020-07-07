@@ -19,12 +19,12 @@ steps:
   displayName: Restore
   inputs:
     command: restore
-    projects: '**/*.csproj'
+    projects: '**/AspNetCore.Bookstore.Web.csproj'
 
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
-    projects: '**/*.csproj'
+    projects: '**/AspNetCore.Bookstore.Web.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
@@ -42,7 +42,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: false
-    projects: '**/Samples.WebJobs.Core.csproj'
+    projects: '**/AspNetCore.Bookstore.Web.csproj'
     arguments: '--configuration $(BuildConfiguration)  --output $(build.artifactstagingdirectory)\App_Data\jobs\triggered\webtestjb'
     zipAfterPublish: false
     modifyOutputPath: false
@@ -62,12 +62,6 @@ steps:
     ArtifactName: 'webjob_drop'
   condition: succeededOrFailed()
   
-- script: |
-    curl -O -L https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
-    unzip pipeline-scan-LATEST.zip pipeline-scan.jar
-
-- script: |
-      java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id $(VERACODE_API_ID) --veracode_api_key $(VERACODE_API_KEY) --file "webjob_drop/LoggingWebMvc.zip" --fail_on_severity="Very High, High" --fail_on_cwe="80"
 
   
 
