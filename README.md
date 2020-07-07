@@ -1,4 +1,15 @@
-# dotnetcore-webjob
-A Dotnet Core Web App and Web Job (Console App)
+# AspNetCore.BookStore
+ASP.NET Core application using Command Pattern and Repository Pattern.
 
-Based on https://github.com/mattwoberts/Samples.WebJobs.Core
+## Patterns/Technologies:
+* ASP.NET Core 2.2
+* Entity Framework Core 2.2
+* Command Pattern
+* Repository Pattern
+* MediatR
+* Fluent Validation
+* AutoMapper
+
+## Author
+
+The AspNetCore.BookStore was developed by [André Secco](http://andresecco.com.br) under the [MIT license](LICENSE).
