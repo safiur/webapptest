@@ -21,7 +21,7 @@ namespace AspNetCore.Bookstore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BookstoreContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("Database")));
 
             services.Configure<CookiePolicyOptions>(options =>
             {
