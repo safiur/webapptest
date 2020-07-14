@@ -19,12 +19,12 @@ steps:
   displayName: Restore
   inputs:
     command: restore
-    projects: 'AspNetCore.Bookstore.sln'
+    projects: 'LoggingWebMvc/LoggingWebMvc.csproj'
 
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
-    projects: 'AspNetCore.Bookstore.sln'
+    projects: 'LoggingWebMvc/LoggingWebMvc.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
@@ -42,7 +42,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: false
-    projects: 'AspNetCore.Bookstore.sln'
+    projects: 'core-webjob/Samples.WebJobs.Core.csproj'
     arguments: '--configuration $(BuildConfiguration)  --output $(build.artifactstagingdirectory)\App_Data\jobs\triggered\webtestjb'
     zipAfterPublish: false
     modifyOutputPath: false
